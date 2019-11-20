@@ -13,12 +13,11 @@ var maxSubArray = function (nums) {
   const dp = new Array(nums.length)
 
   let max = nums[0]
-
-  for (let i = 0; i < nums.length; i++) {
-    for (let j = i; j < nums.length; j++) {
-      dp[j] = i === j ? nums[i] : dp[j - 1] + nums[j]
-      max = Math.max(dp[j], max)
-    }
+  dp[0] = nums[0]
+  for (let i = 1; i < nums.length; i++) {
+    // dp[i] = Math.max(dp[i - 1] + nums[i], nums[i])
+    dp[i] = dp[i - 1] + nums[i] > nums[i] ? dp[i - 1] + nums[i] : nums[i]
+    max = Math.max(max, dp[i])
   }
 
   return max
